@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -33,4 +35,11 @@ public class Reader {
 
     @Column(name = "ACCOUNT_CREATED")
     private Date accountCreated;
+
+    @OneToMany(
+            targetEntity = Borrowing.class,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            mappedBy = "reader")
+    private List<Borrowing> readers = new ArrayList<>();
 }

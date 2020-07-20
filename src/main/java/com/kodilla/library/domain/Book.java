@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,4 +36,11 @@ public class Book {
     @Column(name = "PUBLICATION_YEAR")
     private int publicationYear;
 
+    @OneToMany(
+            targetEntity = Item.class,
+            mappedBy = "book",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<Item> items = new ArrayList<>();
 }

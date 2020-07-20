@@ -33,5 +33,11 @@ public class Borrowing {
     @Column(name = "PAID_FOR_DAMAGED")
     private boolean isPaidForDamaged;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ITEM_ID")
+    private Item item;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "READER_ID")
+    private Reader reader;
 }

@@ -28,4 +28,7 @@ public class Item {
     @Column(name = "STATUS")
     private Status status;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "BOOK_ID")
+    private Book book;
 }
