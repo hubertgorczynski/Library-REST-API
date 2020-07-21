@@ -8,7 +8,6 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 public class ReaderDto {
-    private Long readerId;
     private String name;
     private String lastName;
     private Date accountCreated;

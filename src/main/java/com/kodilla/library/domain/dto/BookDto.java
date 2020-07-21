@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class BookDto {
-    private Long bookId;
     private String title;
     private String author;
     private int publicationYear;

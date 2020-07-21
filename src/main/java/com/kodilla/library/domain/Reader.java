@@ -42,4 +42,9 @@ public class Reader {
             fetch = FetchType.EAGER,
             mappedBy = "reader")
     private List<Borrowing> readers = new ArrayList<>();
+
+    public Reader(String name, String lastName) {
+        this.name = name;
+        this.lastName = lastName;
+    }
 }

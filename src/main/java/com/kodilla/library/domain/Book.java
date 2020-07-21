@@ -43,4 +43,10 @@ public class Book {
             fetch = FetchType.LAZY
     )
     private List<Item> items = new ArrayList<>();
+
+    public Book(String title, String author, int publicationYear) {
+        this.title = title;
+        this.author = author;
+        this.publicationYear = publicationYear;
+    }
 }
