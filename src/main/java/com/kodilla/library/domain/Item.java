@@ -36,4 +36,9 @@ public class Item {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "BOOK_ID")
     private Book book;
+
+    public Item(Book book) {
+        this.book = book;
+        this.status = Status.AVAILABLE;
+    }
 }

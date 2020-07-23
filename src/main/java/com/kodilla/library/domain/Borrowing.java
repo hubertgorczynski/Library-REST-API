@@ -40,4 +40,12 @@ public class Borrowing {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "READER_ID")
     private Reader reader;
+
+    public Borrowing(Item item, Reader reader) {
+        this.item = item;
+        this.reader = reader;
+        this.borrowedFrom = new Date();
+        this.borrowedTo = null;
+        this.isPaidForDamaged = false;
+    }
 }
