@@ -14,11 +14,6 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@NamedNativeQuery(
-        name = "Item.getNumberOfBookItemsByTitle",
-        query = "SELECT COUNT (*) FROM BOOKS, ITEMS WHERE BOOKS.ID = ITEMS.BOOK_ID AND TITLE = :TITLE",
-        resultClass = Item.class
-)
 @Entity
 @Table(name = "ITEMS")
 public class Item {

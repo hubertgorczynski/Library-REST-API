@@ -100,24 +100,4 @@ public class RepositoryTestSuite {
         //CleanUp
         readerRepository.delete(reader);
     }
-
-    @Test
-    public void testCountItems() {
-        //Given
-        Book book1 = new Book("Title", "Author", 1972);
-        Item item1 = new Item(book1);
-
-        //When
-        itemRepository.save(item1);
-        long id = item1.getId();
-
-        Long countedBooks = itemRepository.getNumberOfBookItemsByTitle("Title");
-
-        //Then
-        Assert.assertNotEquals(0, id);
-        Assert.assertNotEquals(Long.valueOf(0), countedBooks);
-
-        //CleanUp
-        itemRepository.delete(item1);
-    }
 }

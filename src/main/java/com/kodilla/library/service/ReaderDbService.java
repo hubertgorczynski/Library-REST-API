@@ -1,0 +1,26 @@
+package com.kodilla.library.service;
+
+import com.kodilla.library.domain.Reader;
+import com.kodilla.library.domain.dto.ReaderDto;
+import com.kodilla.library.mapper.ReaderMapper;
+import com.kodilla.library.repository.ReaderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+
+@Service
+public class ReaderDbService {
+
+    @Autowired
+    private ReaderRepository readerRepository;
+    @Autowired
+    private ReaderMapper readerMapper;
+
+    public ReaderDto saveReader(final ReaderDto readerDto) {
+        Reader reader = readerMapper.mapToReader(readerDto);
+        reader.setAccountCreated(new Date());
+        readerRepository.save(reader);
+        return readerMapper.mapToReaderDto(reader);
+    }
+}
