@@ -9,5 +9,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Long> {
 
-    Long countAllByTitleAndBook(String title);
+    Long countAllByBook_Title(String title);
 }

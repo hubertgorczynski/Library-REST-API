@@ -5,7 +5,6 @@ import com.kodilla.library.domain.Item;
 import com.kodilla.library.domain.Status;
 import com.kodilla.library.domain.dto.ItemDto;
 import com.kodilla.library.mapper.ItemMapper;
-import com.kodilla.library.repository.BookRepository;
 import com.kodilla.library.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,15 +12,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class ItemDbService {
 
+    private final ItemRepository itemRepository;
+    private final ItemMapper itemMapper;
+    private final BookDbService bookDbService;
+
     @Autowired
-    private ItemRepository itemRepository;
-    @Autowired
-    private BookRepository bookRepository;
-    @Autowired
-    private ItemMapper itemMapper;
+    public ItemDbService(ItemRepository itemRepository, ItemMapper itemMapper, BookDbService bookDbService) {
+        this.itemRepository = itemRepository;
+        this.itemMapper = itemMapper;
+        this.bookDbService = bookDbService;
+    }
 
     public ItemDto saveItem(final ItemDto itemDto) {
-        Book book = getBookById(itemDto.getBookId());
+        Book book = bookDbService.getBookById(itemDto.getBookId());
         Item item = new Item(book);
         itemRepository.save(item);
         return itemMapper.mapToItemDto(item);
@@ -38,11 +41,7 @@ public class ItemDbService {
     }
 
     public Long getNumberOfItemsByTitle(String title) {
-        return itemRepository.countAllByTitleAndBook(title);
-    }
-
-    public Book getBookById(final Long id) {
-        return bookRepository.findById(id).orElse(null);
+        return itemRepository.countAllByBook_Title(title);
     }
 
     public Item getItemById(final Long id) {

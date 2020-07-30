@@ -12,15 +12,23 @@ import java.util.Date;
 @Service
 public class ReaderDbService {
 
+    private final ReaderRepository readerRepository;
+    private final ReaderMapper readerMapper;
+
     @Autowired
-    private ReaderRepository readerRepository;
-    @Autowired
-    private ReaderMapper readerMapper;
+    public ReaderDbService(ReaderRepository readerRepository, ReaderMapper readerMapper) {
+        this.readerRepository = readerRepository;
+        this.readerMapper = readerMapper;
+    }
 
     public ReaderDto saveReader(final ReaderDto readerDto) {
         Reader reader = readerMapper.mapToReader(readerDto);
         reader.setAccountCreated(new Date());
         readerRepository.save(reader);
         return readerMapper.mapToReaderDto(reader);
+    }
+
+    public Reader getReaderById(final Long id) {
+        return readerRepository.findById(id).orElse(null);
     }
 }

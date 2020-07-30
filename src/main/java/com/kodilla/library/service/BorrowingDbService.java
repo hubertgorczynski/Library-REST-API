@@ -7,8 +7,6 @@ import com.kodilla.library.domain.Status;
 import com.kodilla.library.domain.dto.BorrowingDto;
 import com.kodilla.library.mapper.BorrowingMapper;
 import com.kodilla.library.repository.BorrowingRepository;
-import com.kodilla.library.repository.ItemRepository;
-import com.kodilla.library.repository.ReaderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,18 +15,23 @@ import java.util.Date;
 @Service
 public class BorrowingDbService {
 
+    private final BorrowingMapper borrowingMapper;
+    private final BorrowingRepository borrowingRepository;
+    private final ReaderDbService readerDbService;
+    private final ItemDbService itemDbService;
+
     @Autowired
-    private BorrowingMapper borrowingMapper;
-    @Autowired
-    private BorrowingRepository borrowingRepository;
-    @Autowired
-    private ReaderRepository readerRepository;
-    @Autowired
-    private ItemRepository itemRepository;
+    public BorrowingDbService(BorrowingMapper borrowingMapper, BorrowingRepository borrowingRepository,
+                              ReaderDbService readerDbService, ItemDbService itemDbService) {
+        this.borrowingMapper = borrowingMapper;
+        this.borrowingRepository = borrowingRepository;
+        this.readerDbService = readerDbService;
+        this.itemDbService = itemDbService;
+    }
 
     public BorrowingDto saveBorrowing(final BorrowingDto borrowingDto) {
-        Reader reader = getReaderById(borrowingDto.getReaderId());
-        Item item = getItemById(borrowingDto.getItemId());
+        Reader reader = readerDbService.getReaderById(borrowingDto.getReaderId());
+        Item item = itemDbService.getItemById(borrowingDto.getItemId());
         Borrowing borrowing = new Borrowing(item, reader);
         borrowing.setBorrowedFrom(new Date());
         borrowingRepository.save(borrowing);
@@ -44,14 +47,6 @@ public class BorrowingDbService {
         }
         borrowingRepository.save(borrowing);
         return borrowingMapper.mapToBorrowingDto(borrowing);
-    }
-
-    public Reader getReaderById(final Long id) {
-        return readerRepository.findById(id).orElse(null);
-    }
-
-    public Item getItemById(final Long id) {
-        return itemRepository.findById(id).orElse(null);
     }
 
     public Borrowing getBorrowingById(final Long id) {
