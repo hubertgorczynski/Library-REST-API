@@ -9,8 +9,8 @@ public class ItemMapper {
 
     public ItemDto mapToItemDto(final Item item) {
         return new ItemDto(
-                item.getBook().getId(),
                 item.getId(),
+                item.getBook().getId(),
                 item.getStatus()
         );
     }
