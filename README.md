@@ -1,4 +1,4 @@
-# Kodilla Library
+# Library REST API
 
 ## This repository contains extra exercise from Kodilla course. 
 
